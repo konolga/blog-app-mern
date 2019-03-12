@@ -2,7 +2,7 @@
   "name": "nodeapi",
   "version": "1.0.0",
   "description": "A node JS API",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js"
@@ -11,10 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-validate": "0.0.8",
     "express-validator": "^5.3.1",
+    "jsonwebtoken": "^8.5.0",
     "mongoose": "^5.4.16",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10"
