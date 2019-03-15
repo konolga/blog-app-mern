@@ -18,6 +18,7 @@
     "express-validate": "0.0.8",
     "express-validator": "^5.3.1",
     "jsonwebtoken": "^8.5.0",
+    "lodash": "^4.17.11",
     "mongoose": "^5.4.16",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10"
