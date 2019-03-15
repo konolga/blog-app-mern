@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 require('dotenv').config
+const expressJwt = require('express-jwt');
 const User = require("../models/user");
 
 
@@ -49,12 +50,32 @@ exports.signin = (req, res) => {
             expire: new Date() + 9999
         })
         //return responce with user and token to frontend client
-        const {_id, name, email} = user
-        return res.json({token, user:{_id, email, name}});
+        const {
+            _id,
+            name,
+            email
+        } = user
+        return res.json({
+            token,
+            user: {
+                _id,
+                email,
+                name
+            }
+        });
     })
 };
 
-exports.signout =(req, res)=>{
+exports.signout = (req, res) => {
     res.clearCookie("token")
-    return res.json({message: "Signout success!"})
+    return res.json({
+        message: "Signout success!"
+    })
 }
+
+exports.requireSignin = expressJwt({
+    //if the token is valid express jwt appends 
+    //the verufied users IDs in auth key to request object
+    secret: process.env.JWT_SECRET,
+    userProperty: "auth"
+});
