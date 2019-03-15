@@ -19,4 +19,22 @@ exports.hasAuthorization = (res, req, next)=>{
             error: "User is not authorized"
         })
     }
+};
+
+exports.allUsers = (req, res)=>{
+    User.find((err, users)=>{
+if(err){
+    return res.status(400).json({
+        error: err
+    })
 }
+
+res.json({users});
+    }).select("name email updated created");
+};
+
+exports.getUser = (req, res)=>{
+    req.profile.hashed_password = undefined;
+    req.profile.salt = undefined;
+    return res.json(req.profile);
+};
