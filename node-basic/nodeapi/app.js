@@ -4,8 +4,11 @@ const mongoose = require('mongoose');
 const morgan = require ('morgan');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
+const fs = require('fs');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const cookieParser = require ('cookie-parser');
+
 
 
 dotenv.config();
@@ -27,9 +30,28 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressValidator());
+app.use(cors());
+
+//bring in routs
 app.use("/", postRoutes);
 app.use("/", authRoutes);
 app.use("/", userRoutes);
+
+//api docs
+app.get('/', (req, res)=>{
+  fs.readFile('docs/apiDocs.json', (err, data)=>{
+    if(err){
+      res.status(400).json({
+        error: err
+      })
+    }
+    const docs =JSON.parse(data);
+    res.json(docs);
+  })
+})
+
+
+
 app.use(function (err, req, res, next) {
     if (err.name === 'UnauthorizedError') {
       res.status(401).json({error: 'You are not authorized...'});
