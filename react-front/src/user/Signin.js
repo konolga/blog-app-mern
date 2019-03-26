@@ -30,6 +30,8 @@ class Signin extends Component {
             email: email,
             password: password
         };
+
+
         signin(user)
         .then(data=>{
             if(data.error) {
@@ -43,6 +45,7 @@ class Signin extends Component {
                     });
                 })
                 //redirect
+                
             }  
         })
     };
