@@ -3,6 +3,7 @@ import {isAuthenticated} from '../auth';
 import {Redirect, Link} from "react-router-dom"; 
 import {read} from './apiUser';
 import DefaultProfile from '../images/avatar.jpg'
+import DeleteUser from './DeleteUser';
 
 class Profile extends Component {
     constructor(){
@@ -28,10 +29,17 @@ init = userId=>{
     });
 };
 
+//to someone's profile
 componentDidMount(){
     const userId = this.props.match.params.userId;
     this.init(userId);
 
+};
+
+//to see own profile from menu
+componentWillReceiveProps(props){
+    const userId = props.match.params.userId;
+    this.init(userId);
 };
 
     render() {
@@ -65,9 +73,7 @@ componentDidMount(){
                               to={`/user/edit/${user._id}`}>
                               Edit profile
                         </Link>
-                        <button className="btn btn-raised btn-danger">
-                                Delete profile
-                        </button>
+                       <DeleteUser userId = {user._id}></DeleteUser>
                     </div>
                 )}
             </div>
