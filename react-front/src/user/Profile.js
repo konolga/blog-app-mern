@@ -5,6 +5,7 @@ import {read} from './apiUser';
 import DefaultProfile from '../images/avatar.jpg'
 import DeleteUser from './DeleteUser';
 
+
 class Profile extends Component {
     constructor(){
         super()
@@ -45,18 +46,21 @@ componentWillReceiveProps(props){
     render() {
         const {redirectToSignin, user} = this.state;
         if(redirectToSignin) return <Redirect to="/signin"/>;
+
+            
+
         return (
         <div className="container">
         <h2 className="mt-5 mb-5">Profile</h2>
         <div className="row">
             <div className="col-md-6">
-                    <img className="card-img-top" 
-                            src={DefaultProfile}
-                            alt={user.name}
-                            style={{
-                                width:'100%', 
-                                height: '15vw', 
-                                objectFit: 'cover'}} /> 
+            <img 
+                    style={{ height: "200px", width: "auto" }}
+                    className="img-thumbnail"
+                    src={`${process.env.REACT_APP_API_URL}/user/photo/${user._id}`}
+                    onError={i=>(i.target.src=`${DefaultProfile}`)}
+                    alt={user.name} 
+                /> 
             </div>
 
             <div className="col-md-6">
@@ -76,6 +80,15 @@ componentWillReceiveProps(props){
                        <DeleteUser userId = {user._id}></DeleteUser>
                     </div>
                 )}
+            </div>
+        </div>
+        <div className="row">
+            <div className="col md-12 mt-5 mb-5">
+            <hr/>
+                <p className="lead">
+                    {user.about}
+                </p>
+                <hr/>
             </div>
         </div>
         </div>
