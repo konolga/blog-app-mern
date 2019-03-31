@@ -1,7 +1,4 @@
-/nodeapi-example
-.env
-/node_modules
-.code
+.vscode
+react-front/node_modules
 nodeapi/node_modules
 basic
-.vscode

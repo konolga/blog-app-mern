@@ -53,11 +53,11 @@ class EditProfile extends Component {
 
         const {name, email, password, fileSize} = this.state
         if(name.length===0){
-            this.setState({error: "Name is required"})
+            this.setState({error: "Name is required", loading: false})
             return false;
         }
         if(fileSize>100000){
-            this.setState({error: "File size should be less than 100Kb"})
+            this.setState({error: "File size should be less than 100Kb", loading: false})
             return false;
         }
         // email@domain.com
@@ -67,7 +67,7 @@ class EditProfile extends Component {
         }
 
         if(password>=1 && password.length<=5){
-            this.setState({error: "Password must be at least 6 characters long"})
+            this.setState({error: "Password must be at least 6 characters long", loading: false})
             return false;
         }
         return true;
