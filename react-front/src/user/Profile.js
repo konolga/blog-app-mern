@@ -4,18 +4,47 @@ import {Redirect, Link} from "react-router-dom";
 import {read} from './apiUser';
 import DefaultProfile from '../images/avatar.jpg'
 import DeleteUser from './DeleteUser';
-
+import FollowProfileButton from './FollowProfileButton'
 
 class Profile extends Component {
     constructor(){
         super()
         this.state={
-            user: "",
-            redirectToSignin: false
+            user: {following: [], followers: []},
+            redirectToSignin: false,
+            following: false,
+            error: ''
         }
     }
 
 
+//check follow
+checkFollow = user =>{
+    const jwt = isAuthenticated()
+    const match = user.followers.find(follower=>{
+
+        //one id -> to many ids
+        return follower._id === jwt.user._id
+    })
+    return match;
+}
+
+
+
+clickFollowButton = (callApi)=>{
+
+    const userId = isAuthenticated().user._id;
+    const token = isAuthenticated().token;
+
+    callApi(userId, token, this.state.user._id)
+    .then(data=>{
+    if(data.error){
+        this.setState({error: data.error})
+        } else {
+            this.setState({user: data, following: !this.state.following})
+        }
+    })
+}
 
 init = userId=>{
     const token = isAuthenticated().token;
@@ -25,10 +54,12 @@ init = userId=>{
             console.log("error")
             this.setState({redirectToSignin:true})
         } else {
-           this.setState({user: data});
+            let following = this.checkFollow(data)//true or false, hide or show button
+           this.setState({user: data, following });
         }
     });
 };
+
 
 //to someone's profile
 componentDidMount(){
@@ -71,7 +102,7 @@ componentWillReceiveProps(props){
                 </div>
 
 
-                {isAuthenticated().user&&isAuthenticated().user._id===user._id&&(
+                {isAuthenticated().user&&isAuthenticated().user._id===user._id?(
                     <div className="d-inline-block">
                         <Link className="btn btn-raised btn-success mr-5"
                               to={`/user/edit/${user._id}`}>
@@ -79,6 +110,13 @@ componentWillReceiveProps(props){
                         </Link>
                        <DeleteUser userId = {user._id}></DeleteUser>
                     </div>
+                ):(
+                    //false or true,  hide or show button
+                    <FollowProfileButton 
+                        following={this.state.following}
+                        onButonClick = {this.clickFollowButton}
+                        />
+                
                 )}
             </div>
         </div>
