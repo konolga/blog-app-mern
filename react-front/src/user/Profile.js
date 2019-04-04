@@ -5,6 +5,7 @@ import {read} from './apiUser';
 import DefaultProfile from '../images/avatar.jpg'
 import DeleteUser from './DeleteUser';
 import FollowProfileButton from './FollowProfileButton'
+import ProfileTabs from './ProfileTabs';
 
 class Profile extends Component {
     constructor(){
@@ -41,7 +42,7 @@ clickFollowButton = (callApi)=>{
     if(data.error){
         this.setState({error: data.error})
         } else {
-            this.setState({user: data, following: !this.state.following})
+        this.setState({user: data, following: !this.state.following})
         }
     })
 }
@@ -52,7 +53,7 @@ init = userId=>{
     .then(data=>{
         if(data.error){
             console.log("error")
-            this.setState({redirectToSignin:true})
+            this.setState({redirectToSignin: true})
         } else {
             let following = this.checkFollow(data)//true or false, hide or show button
            this.setState({user: data, following });
@@ -114,10 +115,16 @@ componentWillReceiveProps(props){
                     //false or true,  hide or show button
                     <FollowProfileButton 
                         following={this.state.following}
-                        onButonClick = {this.clickFollowButton}
+                        onButtonClick = {this.clickFollowButton}
                         />
                 
                 )}
+
+                <hr/>
+                <ProfileTabs 
+                    followers={user.followers}
+                    following = {user.following}    
+                />
             </div>
         </div>
         <div className="row">

@@ -4,33 +4,32 @@ import {follow, unfollow} from './apiUser';
 
 
 class FollowProfileButton extends Component {
-    followClick=()=>{
+    followClick = () => {
         this.props.onButtonClick(follow);
-    }
+    };
 
-    unfollowClick=()=>{
+    unfollowClick = () => {
         this.props.onButtonClick(unfollow);
-    }
+    };
 
     render() {
         return (
-            <div className="d-inline-block mt-5">
-            {
-                !this.props.following ? 
-                (
-                    <button 
-                    onClick={this.followClick}
-                    className="btn btn-success btn-raised mt-5">
-                    Follow
+            <div className="d-inline-block">
+                {!this.props.following ? (
+                    <button
+                        onClick={this.followClick}
+                        className="btn btn-success btn-raised mr-5"
+                    >
+                        Follow
                     </button>
-                ):(
-                    <button 
-                    onClick={this.unfollowClick}
-                    className="btn btn-warning btn-raised mt-5">
-                    Unfollow
+                ) : (
+                    <button
+                        onClick={this.unfollowClick}
+                        className="btn btn-warning btn-raised"
+                    >
+                        UnFollow
                     </button>
-                )
-            }      
+                )}
             </div>
         );
     }
