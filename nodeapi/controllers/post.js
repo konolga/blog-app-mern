@@ -22,10 +22,9 @@ exports.getPosts = (req, res) => {
 
         .populate("postedBy", "_id name")
         .select("_id title body postedBy")
+        .sort({created: -1})
         .then(posts => {
-            res.json({
-                posts: posts
-            });
+            res.json(posts);
         })
         .catch(err => console.log(err));
 };
@@ -122,4 +121,13 @@ exports.updatePost = (req, res, next) => {
         }
         res.json(post);
     });
+};
+
+exports.photo = (req, res, next) => {
+        res.set(("Content-Type", req.post.photo.contentType));
+        return res.send(req.post.photo.data);
+};
+
+exports.singlePost = (req, res)=>{
+    return res.json(req.post);
 };

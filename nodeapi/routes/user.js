@@ -23,8 +23,8 @@ router.put('/user/unfollow', requireSignin, removeFollowing, removeFollower )
 router.get("/users", allUsers);
 router.get("/user/:userId", requireSignin, getUser);
 router.get("/user/photo/:userId", userPhoto);
-//who to follow
-router.get('user/findpeople/:userId', requireSignin, findPeople)
+// who to follow
+router.get("/user/findpeople/:userId", requireSignin, findPeople);
 
 
 

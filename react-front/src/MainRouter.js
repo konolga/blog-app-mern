@@ -8,6 +8,8 @@ import Profile from './user/Profile'
 import Users from './user/Users'
 import EditProfile from './user/EditProfile'
 import FindPeople from './user/FindPeople'
+import NewPost from './post/NewPost'
+import SinglePost from './post/SinglePost'
 import PrivateRoute from './auth/PrivateRoute'
 
 const MainRouter =()=>(
@@ -15,11 +17,13 @@ const MainRouter =()=>(
     <Menu/>
         <Switch>
         <Route exact path="/" component = {Home} />
+        <Route exact path="/post/:postId" component = {SinglePost} />
         <Route exact path="/users" component = {Users} />
         <Route exact path="/signup" component = {Signup} />
         <Route exact  path="/signin" component = {Signin} />
         <PrivateRoute exact path="/user/edit/:userId" component = {EditProfile} />
-        <PrivateRoute exact path="/findPeople" component = {FindPeople} />
+        <PrivateRoute exact path="/user/findpeople/:userId" component = {FindPeople} />
+        <PrivateRoute exact path="/post/create" component = {NewPost} />
         <Route exact path="/user/:userId" component = {Profile} />
             
             

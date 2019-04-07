@@ -199,7 +199,8 @@ exports.addFollower = (req, res) => {
                      error: err
                  });
              };
-             res.json(users);
-         }).select("name")
+            res.json(users);
+            }).select("name")
+             
 
      }

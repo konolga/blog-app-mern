@@ -13,7 +13,7 @@ class FindPeople extends Component {
         this.state={
             users:[],
             error: '', 
-            open: true
+            open: false
         }
     }
 
@@ -23,7 +23,7 @@ class FindPeople extends Component {
         const userId = isAuthenticated().user._id;
         const token = isAuthenticated().token;
 
-        findPeople(userId, token)
+    findPeople(userId, token)
         .then(data=>{
             if(data.error){
                 console.log(data.error)
