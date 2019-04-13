@@ -56,21 +56,19 @@ class NewPost extends Component {
         this.setState({loading: true})
 
         if(this.isValid()){
-            const userId = isAuthenticated.user._id;
+            const userId = isAuthenticated().user._id;
             const token = isAuthenticated().token;
 
             create(userId, token, this.postData)
             .then(data=>{
-            if(data.error) {this.setState({error: data.error})}
+            if(data.error) this.setState({error: data.error})
             else 
-            this.setState({
+                { this.setState({
                 loading: false, 
                 title :'',
                 body: '',
-                photo: '',
                 redirectToProfile: true
-                })
-
+                })}
             });    
         }   
     };
@@ -88,7 +86,7 @@ class NewPost extends Component {
 
         <div className="form-group">
             <label className="text-muted">Body</label>
-            <input onChange = {this.handleChange("about")} type="body" value = {body} className="form-control"/>
+            <input onChange = {this.handleChange("body")} type="text" value = {body} className="form-control"/>
         </div>
 
 
@@ -102,7 +100,6 @@ class NewPost extends Component {
         const {
             title,
             body,
-            photo,
             user,
             error,
             loading, 

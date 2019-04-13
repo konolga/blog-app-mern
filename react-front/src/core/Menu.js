@@ -55,8 +55,8 @@ const Menu =({history})=>(
 
             <li className="nav-item ">  
                 <Link className="nav-link"
-                    to={`/post/create`} 
-                    style={isActive(history,`/post/create`)} 
+                    to={`/post/create/:userId`} 
+                    style={isActive(history,`/post/create/:userId`)} 
                     >
                     Create Post
                 </Link>  

@@ -1,6 +1,6 @@
 //update user info
 export const create = (userId, token, post)=>{
-    return fetch(`${process.env.REACT_APP_API_URL}/post/new/${userId}`,{
+    return fetch(`${process.env.REACT_APP_API_URL}/post/create/${userId}`,{
         method: "POST",
         headers: {
             Accept: "application/json",

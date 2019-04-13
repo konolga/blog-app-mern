@@ -27,7 +27,7 @@ router.get("/post/:postId", singlePost)
 
 // POST
 router.post(
-    "/post/new/:userId",
+    "/post/create/:userId",
     requireSignin,
     createPost,
     createPostValidator
