@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {singlePost} from './apiPost';
 import DefaultPost from '../images/post-default.jpg'
 import {Link} from 'react-router-dom'
+import {isAuthenticated} from '../auth';
 
 class SinglePost extends Component {
     state = {
@@ -45,11 +46,32 @@ class SinglePost extends Component {
                                     </Link>
                                on {new Date(post.created).toDateString()}
                             </p>
+                            <div className="d-inline-block">
                             <Link
-                                className="btn btn-raised btn-primary btn-sm"
+                                className="btn btn-raised btn-primary btn-sm mr-5"
                                 to={`/`}>
                             Back to posts...
                             </Link>
+
+                            {isAuthenticated().user
+                            &&isAuthenticated().user._id===post.postedBy._id
+                            &&<>
+                                <Link
+                                className="btn btn-raised btn-warning btn-sm mr-5"
+                                to={`/`}>
+                                Edit post
+                                </Link>
+
+                                <Link
+                                className="btn btn-raised btn-warning btn-sm mr-5"
+                                to={`/`}>
+                                Delete post
+                                </Link>
+                                </>
+                            }
+                           
+                            
+                            </div>
                         </div>
                 );
         }
