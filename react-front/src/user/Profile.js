@@ -6,17 +6,18 @@ import DefaultProfile from '../images/avatar.jpg'
 import DeleteUser from './DeleteUser';
 import FollowProfileButton from './FollowProfileButton'
 import ProfileTabs from './ProfileTabs';
-import {listByUser} from '..post/apiPost';
+import {listByUser} from '../post/apiPost';
 
 class Profile extends Component {
     constructor(){
         super()
         this.state={
-            user: {following: [], followers: []},
+            user: {following: [], followers: [] },
             redirectToSignin: false,
             following: false,
             error: '',
             posts: []
+            
         }
     }
 
@@ -49,37 +50,35 @@ clickFollowButton = (callApi)=>{
     })
 }
 
-init = userId=>{
+init = userId => {
     const token = isAuthenticated().token;
-   read(userId, token)
-    .then(data=>{
-        if(data.error){
-            console.log("error")
-            this.setState({redirectToSignin: true})
+    read(userId, token).then(data => {
+        if (data.error) {
+            this.setState({ redirectToSignin: true });
         } else {
-            let following = this.checkFollow(data)//true or false, hide or show button
-           this.setState({user: data, following });
-           this.loadPost(data._id)
+            let following = this.checkFollow(data);
+            this.setState({ user: data, following });
+            this.loadPosts(data._id);
         }
     });
 };
 
-loadPost = userId=>{
+loadPosts = userId => {
     const token = isAuthenticated().token;
-    listByUser (userId, token).then(data=>{
-        if(data.error){
-            console.log(data.error)
+    listByUser(userId, token).then(data => {
+        if (data.error) {
+            console.log(data.error);
         } else {
-            this.setState({posts: data})
+            this.setState({ posts: data });
         }
-    })
-}
+    });
+};
+
 
 //to someone's profile
 componentDidMount(){
     const userId = this.props.match.params.userId;
     this.init(userId);
-
 };
 
 //to see own profile from menu

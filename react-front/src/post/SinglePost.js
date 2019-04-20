@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import {singlePost} from './apiPost';
+import {singlePost, remove} from './apiPost';
 import DefaultPost from '../images/post-default.jpg'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {isAuthenticated} from '../auth';
 
 class SinglePost extends Component {
     state = {
-        post:''
+        post:'',
+        redirectToHome: false
     }
 
     componentDidMount =()=>{
@@ -19,6 +20,28 @@ class SinglePost extends Component {
             }
         });
     };
+
+    deletePost =()=>{
+            const postId = this.props.match.params.postId;
+            const token = isAuthenticated().token;
+            remove(postId, token).then(data=>{
+                if(data.error){
+                    console.log(data.error)
+                }else{
+                    this.setState({
+                        redirectToHome: true
+                    })
+                }
+            })
+    }
+
+    deleteConfirmed =()=>{
+        let answer = window.confirm("Are you sure you want to delete your post?")
+        if(answer){
+            this.deletePost()
+        }
+    }
+
     renderPost=(post)=>{
         const posterId = post.postedBy?`/user/${post.postedBy._id}`:"";
         const posterName = post.postedBy?post.postedBy.name:"Unknown";
@@ -57,12 +80,14 @@ class SinglePost extends Component {
                             &&isAuthenticated().user._id===post.postedBy._id
                             &&<>
                                 <Link
+                               
                                 className="btn btn-raised btn-warning btn-sm mr-5"
-                                to={`/`}>
+                                to={`/post/edit/${post._id}`}>
                                 Edit post
                                 </Link>
 
                                 <Link
+                                onClick={this.deleteConfirmed}
                                 className="btn btn-raised btn-warning btn-sm mr-5"
                                 to={`/`}>
                                 Delete post
@@ -77,6 +102,9 @@ class SinglePost extends Component {
         }
 
     render() {
+        if(this.state.redirectToHome){
+            return <Redirect to={`/`}/>;
+        }
         const {post} = this.state;
         return (
             <div className="container">

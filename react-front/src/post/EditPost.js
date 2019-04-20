@@ -1,31 +1,48 @@
 import React, { Component } from 'react';
+import { singlePost, update } from './apiPost';
 import {isAuthenticated} from '../auth';
-import {create} from './apiPost';
-import {Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom'
+import DefaultPost from '../images/post-default.jpg'
 
 
-
-class NewPost extends Component {
-    constructor(){
+class EditPost extends Component {
+    constructor (){
         super()
-        this.state={
+        this.state = {
+            id:'',
             title: '',
             body: '',
-            photo: '',
-            error: '',
-            user: {},
-            fileSize: 0, 
-            loading: false,
-            redirectToProfile: false
+            redirectToProfile: false,
+            error: ''
         }
     }
 
+    init = postId=>{
 
+        
+        singlePost(postId)
+        .then(data=>{
+            if(data.error){
+                this.setState({redirectToProfile:true})
+            } else {
+               this.setState({
+                    id: data._id, 
+                    title: data.title, 
+                    body: data.body,
+                    error: "",
+                    fileSize: 0, 
+                    loading: false
+                });
+            }
+        });
+    };
     
-
+    //to someone's profile
     componentDidMount(){
         this.postData = new FormData()
-        this.setState({user: isAuthenticated().user})
+        const postId = this.props.match.params.postId;
+        this.init(postId);
+    
     };
 
     isValid=()=>{
@@ -56,10 +73,10 @@ class NewPost extends Component {
         this.setState({loading: true})
 
         if(this.isValid()){
-            const userId = isAuthenticated().user._id;
+            const postId = isAuthenticated().post._id;
             const token = isAuthenticated().token;
 
-            create(userId, token, this.postData)
+            update(postId, token, this.postData)
             .then(data=>{
             if(data.error) this.setState({error: data.error})
             else 
@@ -73,10 +90,11 @@ class NewPost extends Component {
         }   
     };
 
-    newPostForm=(title, body)=>(
+
+    editPostForm=(title, body)=>(
         <form>
          <div className="form-group">
-            <label className="text-muted">Profile photo</label>
+            <label className="text-muted">Post photo</label>
             <input onChange = {this.handleChange("photo")} type="file" accept ="image/*" className="form-control"/>
         </div>
         <div className="form-group">
@@ -90,42 +108,45 @@ class NewPost extends Component {
         </div>
 
 
-           <button onClick ={this.clickSubmit} className="btn btn-raised btn-primary">Create post</button>
+           <button onClick ={this.clickSubmit} className="btn btn-raised btn-primary">Edit post</button>
        </form>
     )
 
 
+
     render() {
-
-        const {
-            title,
-            body,
-            user,
-            error,
-            loading, 
-            redirectToProfile
-        } = this.state;
+        const {title, body, redirectToProfile, id, error, loading} = this.state
+        const photoUrl = id?`${process.env.REACT_APP_API_URL}/post/photo/${id}`: DefaultPost
+        
+        if(redirectToProfile){
+            return <Redirect to={`/user/${isAuthenticated().user._id}`}/>;
+        }
 
 
-             if(redirectToProfile){
-               return <Redirect to={`/user/${user._id}`}/>
-            }
-    
-            return ( 
-              <div className="container">
-              <h2 className = "mt-5 mb-5">Create a new post</h2>
+        return (
+            <div className = "container">
+                <h2 className = "mt-5 mb-5">{title}</h2>     
+
                 <div className="alert alert-danger" 
                     style={{display: error ? "": "none"}}>
                     {error}
                 </div>
 
-                {loading
-                ? <div className ="jumbotron text-center"><h2>Loading...</h2></div>
-                : ""}
-              {this.newPostForm(title, body)}
-              </div>         
+                {loading ? <div className ="jumbotron text-center">
+                    <h2>Loading...</h2>
+                </div>:""}
+
+                <img 
+                    style={{ height: "200px", width: "auto" }}
+                    className="img-thumbnail"
+                    src={photoUrl}
+                    onError={i=>(i.target.src=`${DefaultPost}`)}
+                    alt={title} 
+                />
+                {this.editPostForm(title, body)}
+            </div>
         );
     }
 }
 
-export default NewPost;
+export default EditPost;
