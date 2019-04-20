@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {signin, authenticate} from '../auth';
 
 class Signin extends Component {
@@ -67,6 +67,8 @@ class Signin extends Component {
         </div>
 
            <button onClick ={this.clickSubmit} className="btn btn-raised btn-primary">Submit</button>
+         
+          
        </form>
     )
 
@@ -77,7 +79,7 @@ class Signin extends Component {
         return (
            
             <div className="container">
-                <h2 className = "mt-5 mb-5">signin</h2>
+                <h2 className = "mt-5 mb-5">Login</h2>
                 <div className="alert alert-danger" 
                 style={{display: error ? "": "none"}}>
                      {error}
@@ -88,6 +90,14 @@ class Signin extends Component {
 
                {this.signinForm(email, password)}
                 
+
+                <p>
+                <Link to="/forgot-password" className="btn btn-raised btn-danger">{" "}
+                    Forgot Password?
+                </Link>
+                </p>
+
+
             </div>
         );
     }

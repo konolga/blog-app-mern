@@ -125,35 +125,34 @@ exports.deletePost = (req, res)=>{
 }; */
 
 exports.updatePost = (req, res, next) => {
-    let form = new formidable.IncomingForm()
-    form.keepExtensions = true
-    form.parse(req,(err, fields, files)=>{
-        if(err){
+    let form = new formidable.IncomingForm();
+    form.keepExtensions = true;
+    form.parse(req, (err, fields, files) => {
+        if (err) {
             return res.status(400).json({
-                error: "Photo cannot be uploaded"
+                error: "Photo could not be uploaded"
             });
         }
-        //save
-        let user = req.profile
-        post=_.extend(user, fields)
-        post.updated = Date.now()
+        // save post
+        let post = req.post;
+        post = _.extend(post, fields);
+        post.updated = Date.now();
 
-        if(files.photo){
+        if (files.photo) {
             post.photo.data = fs.readFileSync(files.photo.path);
             post.photo.contentType = files.photo.type;
         }
 
-        post.save((err, result)=>{
-            if(err){
+        post.save((err, result) => {
+            if (err) {
                 return res.status(400).json({
                     error: err
                 });
             }
-
-             res.json(post);
-        })
-    })
-}
+            res.json(post);
+        });
+    });
+};
 
 exports.photo = (req, res, next) => {
         res.set(("Content-Type", req.post.photo.contentType));
