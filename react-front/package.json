@@ -2,6 +2,7 @@
   "name": "react-front",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://konolga.github.io/MERN-project/",
   "dependencies": {
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
