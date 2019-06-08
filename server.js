@@ -8,14 +8,14 @@ const fs = require('fs');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const cookieParser = require ('cookie-parser');
-
+const path = require("path");
 
 
 dotenv.config();
 
 //
 
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true})
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
         .then(()=>console.log('DB connected'))
 
 mongoose.connection.on('error', err=>console.log(`${err.message}`));
@@ -31,6 +31,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressValidator());
 app.use(cors());
+app.use(express.static(path.join(__dirname, "client", "build")))
 
 //bring in routs
 app.use("/", postRoutes);
@@ -60,6 +61,10 @@ app.use(function (err, req, res, next) {
 
 
 const port = process.env.PORT||8080;
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(port, ()=>{
     console.log(`A NodeJS API on port: ${port}`)

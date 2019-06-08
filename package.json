@@ -1,11 +1,13 @@
 {
-  "name": "nodeapi",
+  "name": "blog-app-mern",
   "version": "1.0.0",
-  "description": "A node JS API",
+  "description": "Blog app",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "author": "Olga Kon",
   "license": "ISC",
@@ -26,5 +28,9 @@
     "nodemailer": "^6.1.1",
     "nodemon": "^1.18.10",
     "uuid": "^3.3.2"
-  }
+  },
+  "proxy": "http://localhost:8000",
+  "engines": {
+    "node": "12.2.0"
+}
 }

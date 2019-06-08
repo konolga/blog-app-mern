@@ -1,4 +1,7 @@
 .vscode
-react-front/node_modules
-nodeapi/node_modules
-basic
+/node_modules
+.env
+*.orig
+.idea/
+.vscode/
+.DS_Store
