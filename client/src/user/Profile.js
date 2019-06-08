@@ -126,7 +126,7 @@ componentWillReceiveProps(props){
                     <div className="d-inline-block">
 
                     <Link className="btn btn-raised btn-info mr-5"
-                              to={`/post/create`}>
+                              to={`/post/create/${user._id}`}>
                               Create post
                         </Link>
 
