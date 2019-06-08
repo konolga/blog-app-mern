@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.js": "/konolga/blog-app-mern/static/js/main.4ead6b66.chunk.js",
+    "main.js.map": "/konolga/blog-app-mern/static/js/main.4ead6b66.chunk.js.map",
+    "runtime~main.js": "/konolga/blog-app-mern/static/js/runtime~main.a5d698d0.js",
+    "runtime~main.js.map": "/konolga/blog-app-mern/static/js/runtime~main.a5d698d0.js.map",
+    "static/js/2.e76f0a22.chunk.js": "/konolga/blog-app-mern/static/js/2.e76f0a22.chunk.js",
+    "static/js/2.e76f0a22.chunk.js.map": "/konolga/blog-app-mern/static/js/2.e76f0a22.chunk.js.map",
+    "index.html": "/konolga/blog-app-mern/index.html",
+    "precache-manifest.5e0eb356326d3cf9dced4a55f92eca22.js": "/konolga/blog-app-mern/precache-manifest.5e0eb356326d3cf9dced4a55f92eca22.js",
+    "service-worker.js": "/konolga/blog-app-mern/service-worker.js",
+    "static/media/avatar.jpg": "/konolga/blog-app-mern/static/media/avatar.d5f51047.jpg",
+    "static/media/post-default.jpg": "/konolga/blog-app-mern/static/media/post-default.e84edac5.jpg"
+  }
+}
