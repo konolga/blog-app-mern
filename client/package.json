@@ -2,7 +2,7 @@
   "name": "react-front",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/konolga/blog-app-mern",
+  "homepage": "https://blog-app-mern.herokuapp.com/",
   "dependencies": {
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
