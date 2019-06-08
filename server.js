@@ -5,7 +5,7 @@ const morgan = require ('morgan');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const fs = require('fs');
-const cors = require('cors');
+//const cors = require('cors');
 const dotenv = require('dotenv');
 const cookieParser = require ('cookie-parser');
 const path = require("path");
@@ -13,7 +13,12 @@ const path = require("path");
 
 dotenv.config();
 
-//
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Origin', ['*']);
+  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.append('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
         .then(()=>console.log('DB connected'))
@@ -30,7 +35,7 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressValidator());
-app.use(cors());
+//app.use(cors());
 app.use(express.static(path.join(__dirname, "client", "build")))
 
 //bring in routs
