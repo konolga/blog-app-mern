@@ -18,7 +18,7 @@ class Profile extends Component {
             error: '',
             posts: []
             
-        }
+        };
     }
 
 
@@ -54,7 +54,7 @@ init = userId => {
     const token = isAuthenticated().token;
     read(userId, token).then(data => {
         if (data.error) {
-            this.setState({ redirectToSignin: true });
+            this.setState({ redirectToSignin: false });
         } else {
             let following = this.checkFollow(data);
             this.setState({ user: data, following });
@@ -92,6 +92,12 @@ componentWillReceiveProps(props){
         if(redirectToSignin) return <Redirect to="/signin"/>;
 
             
+        const photoUrl = user._id
+        ? `${process.env.REACT_APP_API_URL}/user/photo/${
+              user._id
+          }?${new Date().getTime()}`
+        : DefaultProfile;
+
 
         return (
         <div className="container">
@@ -101,7 +107,7 @@ componentWillReceiveProps(props){
             <img 
                     style={{ height: "200px", width: "auto" }}
                     className="img-thumbnail"
-                    src={`${process.env.REACT_APP_API_URL}/user/photo/${user._id}`}
+                    src={photoUrl}
                     onError={i=>(i.target.src=`${DefaultProfile}`)}
                     alt={user.name} 
                 /> 
@@ -115,7 +121,8 @@ componentWillReceiveProps(props){
                 </div>
 
 
-                {isAuthenticated().user&&isAuthenticated().user._id===user._id?(
+                {isAuthenticated().user&&
+                isAuthenticated().user._id===user._id?(
                     <div className="d-inline-block">
 
                     <Link className="btn btn-raised btn-info mr-5"

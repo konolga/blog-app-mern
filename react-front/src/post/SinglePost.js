@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {singlePost, remove} from './apiPost';
 import DefaultPost from '../images/post-default.jpg'
 import {Link, Redirect} from 'react-router-dom'
-import {isAuthenticated} from '../auth';
+import {isAuthenticated} from '../auth/index'
 
 class SinglePost extends Component {
     state = {

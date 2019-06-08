@@ -5,9 +5,8 @@ const {userSignupValidator, passwordResetValidator} = require("../validator");
 
 const router = express.Router();
 
-
-router.post("/signup",userSignupValidator, signup);
 router.post("/signin", signin);
+router.post("/signup",userSignupValidator, signup);
 router.post("/social-login", socialLogin); 
 
 router.get("/signout", signout);

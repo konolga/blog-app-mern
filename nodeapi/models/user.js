@@ -43,7 +43,8 @@ const userSchema = new mongoose.Schema({
 })
 
 //virtual field (password) only exist logically and not saved in DB
-userSchema.virtual('password')
+userSchema
+.virtual('password')
 .set(function(password){
     //create temporary variable called _password
     this._password = password
@@ -58,18 +59,19 @@ userSchema.virtual('password')
 
 //methods
 userSchema.methods = {
-    auntenticate: function(plainText){
+    authenticate: function(plainText){
 return this.encryptPassword(plainText)=== this.hashed_password
     },
     encryptPassword: function (password){
         if(!password) return "";
         try {
-            return  crypto.createHmac('sha256', this.salt) //this.salt is the secret key
+            return  crypto
+            .createHmac('sha256', this.salt) //this.salt is the secret key
             .update(password)
             .digest('hex');
         }
         catch (err){
-            return "";
+            return "userSchema error";
         }
     }
 }

@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken')
-require('dotenv').config
-const expressJwt = require('express-jwt');
+const jwt = require("jsonwebtoken");
+require('dotenv').config();
+const expressJwt = require("express-jwt");
 const User = require("../models/user");
 const _ = require("lodash");
 const { sendEmail } = require("../helpers");
@@ -31,20 +31,22 @@ exports.signin = (req, res) => {
             return res.status(401).json({ error: "User with this email does not exist" })
         }
         //if found, authenticate
-        if (!user.auntenticate(password)) {
+        if (!user.authenticate(password)) {
             return res.status(401).json({error: "Email and password do not match"})
         }
         //generate a token with user id and secret
-        const token = ({
-            _id: user._id
-        }, process.env.JWT_SECRET);
-        //persist the toket as 't' in cookie with expiry date
+        const token = jwt.sign(
+            { _id: user._id },
+            process.env.JWT_SECRET
+        );
+        
+        //persist the toket as 'token' in cookie with expiry date
         res.cookie("token", token, {
             expire: new Date() + 9999
         })
         //return responce with user and token to frontend client
         const {_id, name, email} = user
-        return res.json({ token, user: { _id, email, name}});
+        return res.json({ token, user: { _id, email, name } });
     })
 };
 
@@ -55,7 +57,7 @@ exports.signout = (req, res) => {
     })
 }
 
-exports.requireSignin = expressJwt({
+exports.requireSignin = expressJwt ({
     //if the token is valid express jwt appends 
     //the verified users IDs in auth key to request object
     secret: process.env.JWT_SECRET,
@@ -144,7 +146,7 @@ exports.socialLogin = (req, res) => {
                 { _id: user._id, iss: "NODEAPI" },
                 process.env.JWT_SECRET
             );
-            res.cookie("t", token, { expire: new Date() + 9999 });
+            res.cookie("token", token, { expire: new Date() + 9999 });
             // return response with user and token to frontend client
             const { _id, name, email } = user;
             return res.json({ token, user: { _id, name, email } });
@@ -159,7 +161,7 @@ exports.socialLogin = (req, res) => {
                  { _id: user._id, iss: "NODEAPI" },
                 process.env.JWT_SECRET
             );
-            res.cookie("t", token, { expire: new Date() + 9999 });
+            res.cookie("token", token, { expire: new Date() + 9999 });
             // return response with user and token to frontend client
             const { _id, name, email } = user;
             return res.json({ token, user: { _id, name, email } });

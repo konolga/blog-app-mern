@@ -26,7 +26,7 @@ exports.getPosts = (req, res) => {
         .then(posts => {
             res.json(posts);
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log("cannot get post:", err));
 };
 
 exports.createPost = (req, res, next) => {

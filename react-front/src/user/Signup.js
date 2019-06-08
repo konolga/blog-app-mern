@@ -69,7 +69,7 @@ class Signup extends Component {
         return (
            
             <div className="container">
-                <h2 className = "mt-5 mb-5">signup</h2>
+                <h2 className = "mt-5 mb-5">Signup</h2>
                 <div className="alert alert-danger" 
                 style={{display: error ? "": "none"}}>
                      {error}

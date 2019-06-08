@@ -26,7 +26,7 @@ const MainRouter =()=>(
         <PrivateRoute exact path="/post/edit/:postId" component = {EditPost} />
         <Route exact path="/users" component = {Users} />
         <Route exact path="/signup" component = {Signup} />
-        <Route exact  path="/signin" component = {Signin} />
+        <Route exact path="/signin" component = {Signin} />
         <PrivateRoute exact path="/user/edit/:userId" component = {EditProfile} />
         <PrivateRoute exact path="/user/findpeople/:userId" component = {FindPeople} />
         <PrivateRoute exact path="/post/create/:userId" component = {NewPost} />

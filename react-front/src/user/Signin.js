@@ -81,6 +81,7 @@ class Signin extends Component {
            
             <div className="container">
                 <h2 className = "mt-5 mb-5">Login</h2>
+                <h6>To test login use username: admin@admin.com and password: admin.com1 </h6>
                 <hr /> <SocialLogin /><hr />
                 <div className="alert alert-danger" 
                 style={{display: error ? "": "none"}}>

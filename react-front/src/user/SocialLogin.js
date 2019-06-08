@@ -13,7 +13,7 @@ class SocialLogin extends Component {
     }
  
     responseGoogle = response => {
-        console.log(response);
+        console.log("this comes from google", response);
         const { googleId, name, email, imageUrl } = response.profileObj;
         const user = {
             password: googleId,
@@ -36,10 +36,10 @@ class SocialLogin extends Component {
     };
 
     responseFacebook = response => {
-        console.log(response);
-        const { name, email, picture } = response;
+        console.log("this comes from facebbok", response);
+        const { name, email, picture, appId } = response;
         const user = {
-            
+            password: appId,
             name: name,
             email: email,
             picture: picture
@@ -69,7 +69,8 @@ class SocialLogin extends Component {
         }
  
         return (
-            <>
+            <div>
+            
             <GoogleLogin
                 clientId="590589910815-gb1hotl5nnh2ooh5q8177jk50nshojpk.apps.googleusercontent.com"
                 buttonText="Login with Google"
@@ -77,15 +78,17 @@ class SocialLogin extends Component {
                 onFailure={this.responseGoogle}
             />
 
-            <FacebookLogin
+<p></p>
+
+        {/*     <FacebookLogin
                 appId="1353682264756862"
-                autoLoad={true}
-                fields="name,email,picture"
+                autoLoad={false}
+                fields="name,email,picture, password"
                 buttonText="Facebook Login"
                 onClick={this.componentClicked}
                 callback={this.responseFacebook}
-            />
-            </>
+            /> */}
+            </div>
         );
     }
 }
