@@ -62,9 +62,9 @@ app.use(function (err, req, res, next) {
 
 const port = process.env.PORT||8080;
 
-app.get("*", (req, res) => {
+ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
+}); 
 
 app.listen(port, ()=>{
     console.log(`A NodeJS API on port: ${port}`)

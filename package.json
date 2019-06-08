@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js",
+    "dev": "nodemon server.js",
     "start": "node server.js",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
@@ -32,5 +32,5 @@
   "proxy": "http://localhost:8000",
   "engines": {
     "node": "12.2.0"
-}
+  }
 }

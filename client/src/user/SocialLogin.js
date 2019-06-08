@@ -80,14 +80,14 @@ class SocialLogin extends Component {
 
 <p></p>
 
-        {/*     <FacebookLogin
+            <FacebookLogin
                 appId="1353682264756862"
                 autoLoad={false}
                 fields="name,email,picture, password"
                 buttonText="Facebook Login"
                 onClick={this.componentClicked}
                 callback={this.responseFacebook}
-            /> */}
+            />
             </div>
         );
     }
