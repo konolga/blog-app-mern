@@ -31,7 +31,7 @@ const MainRouter =()=>(
         <PrivateRoute exact path="/user/findpeople/:userId" component = {FindPeople} />
         <PrivateRoute exact path="/post/create/:userId" component = {NewPost} />
 
-        <Route exact path="/user/:userId" component = {Profile} />
+        <PrivateRoute exact path="/user/:userId" component = {Profile} />
 
             
             
