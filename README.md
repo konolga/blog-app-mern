@@ -13,3 +13,5 @@ Authorization
 Social Login using JWT
 
 CRUD, Image Upload, User Posts Relationships, follow, unfollow, likes, comments and more
+
+Deploy to Heroku: https://blog-app-mern.herokuapp.com/
